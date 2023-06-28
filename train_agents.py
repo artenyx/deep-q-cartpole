@@ -85,7 +85,7 @@ def train_agent_dq_learning(config, render=False):
 
             if done:
                 episode_durations.append(t + 1)
-                episode_rewards.append(np.mean(step_rewards))
+                episode_rewards.append(np.mean(step_rewards.cpu()))
                 break
         if (i_episode + 1) % 10 == 0:
             print(f"Episode {i_episode + 1} complete.")
