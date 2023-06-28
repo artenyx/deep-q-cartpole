@@ -1,0 +1,28 @@
+# BATCH_SIZE is the number of transitions sampled from the replay buffer
+# GAMMA is the discount factor as mentioned in the previous section
+# EPS_START is the starting value of epsilon
+# EPS_END is the final value of epsilon
+# EPS_DECAY controls the rate of exponential decay of epsilon, higher means a slower decay
+# TAU is the update rate of the target network
+# LR is the learning rate of the ``AdamW`` optimizer
+
+device: cpu
+data_path: "data"
+model:
+  n_hidden: 500
+
+environment:
+  name: "CartPole-v1"
+  buffer_size: 10000
+
+optimizer:
+  lr: 0.0001
+  tau: 0.005
+
+training:
+  batch_size: 128
+  gamma: 0.99
+  epsilon_start: 0.9
+  epsilon_end: 0.05
+  epsilon_decay: 1000
+  n_episodes: 200
