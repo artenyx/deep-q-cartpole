@@ -58,7 +58,7 @@ def train_agent_dq_learning(config, render=False):
 
             observation, reward, terminated, truncated, _ = env.step(action.item())
             reward = torch.tensor([reward + abs(observation[1]) + observation[0]**2], device=device, dtype=torch.float32) # make generic reward function call
-            step_rewards.append(reward)
+            step_rewards.append(reward.cpu())
 
             done = terminated or truncated
             if terminated:
@@ -85,7 +85,7 @@ def train_agent_dq_learning(config, render=False):
 
             if done:
                 episode_durations.append(t + 1)
-                episode_rewards.append(np.mean(step_rewards.cpu()))
+                episode_rewards.append(np.mean(step_rewards))
                 break
         if (i_episode + 1) % 10 == 0:
             print(f"Episode {i_episode + 1} complete.")
